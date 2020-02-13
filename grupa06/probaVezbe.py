@@ -1,4 +1,4 @@
 "Napravite listu imena"
 
-NameList = ['Anaaaa', 'Filiiiiip']
+NameList = ['Anaaaa', 'Fillllp']
 
