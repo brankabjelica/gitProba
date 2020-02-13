@@ -1,2 +1,5 @@
-"Napravite listu imena"
+
+
+
+lista = ["iVANn"]
 
