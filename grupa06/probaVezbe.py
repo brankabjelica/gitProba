@@ -1,3 +1,3 @@
 "Napravite listu imena"
-lista=[natasa,natasa,natasa]
+lista=[natasa,nataasa,nataasa]
 
