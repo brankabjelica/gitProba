@@ -1,3 +1,3 @@
 "Napravite listu imena"
 
-lista
+lista=["natas0aaaa00a"]
