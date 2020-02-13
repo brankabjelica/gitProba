@@ -1,5 +1,5 @@
 "Napravite listu imena"
 
-listaImena=["Mila","Boris","Mirko","Anton"]
+listaImena=["Mila","Boris","Mirko","Anton","Jovan"]
 print(listaImena)
 
