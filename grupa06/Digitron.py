@@ -64,6 +64,7 @@ def jednako():
         rez.set("")
         messagebox.showerror("Greska", "Zabranjeno je deljenje nulom!")
 
+        
 rez=tk.StringVar()
 
 rezultat=tk.Label(prviFramee,text="",textvariable=rez).pack()
