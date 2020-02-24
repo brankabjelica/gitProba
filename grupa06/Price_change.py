@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.ttk as ttk
 
 
+
 def check(a, b, c, d):
     if a.isnumeric() and b.isnumeric():
         first_res = f'{a}.{b}'
