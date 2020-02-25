@@ -127,8 +127,3 @@ class AppText:
 
 
 AppText()
-
-
-
-
-
