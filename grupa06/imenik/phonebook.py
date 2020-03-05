@@ -105,7 +105,7 @@ class Phone:
             self.numbers = []
 
     def save_data(self):
-        self.book = self.work_book
+        self.book = self.work_book.drop_duplicates()
         self.book.to_excel(self.df_path, index=False)
         tk.messagebox.showinfo("Save", "Saved successfully")
         print(self.book)
