@@ -9,7 +9,8 @@ class Phone:
     def __init__(self):
         root = tk.Tk()
         root.title('Phonebook')
-        self.df_path = os.path.join(os.getcwd(), 'book.xls')
+        self.df_path = os.path.join(os.getcwd(), 'book'
+                                                 '.xls')
         self.book = pd.DataFrame(columns=['name', 'last', 'num'])
         self.book['name'].astype('str')
         self.book['last'].astype('str')
@@ -87,79 +88,59 @@ class Phone:
         self.tree.delete(*self.tree.get_children())
         self.work_book.drop(['name', 'last', 'num'], axis=1, inplace=True)
         self.work_book = pd.DataFrame(columns=['name', 'last', 'num'])
-        print(self.work_book)
 
     def delete(self):
-        print(self.work_book)
         for selected_item in self.tree.selection():
             number = '+' + str(list(self.tree.item(selected_item).values())[2][2])
-            print(number)
-            print(type(number))
             self.numbers.append(number)
-            print(self.numbers)
             self.tree.delete(selected_item)
         for item in self.numbers:
             self.work_book = self.work_book[self.work_book['num'] != item].reset_index(drop=True)
-            print(self.work_book)
-
             self.numbers = []
 
     def save_data(self):
         self.book = self.work_book.drop_duplicates()
         self.book.to_excel(self.df_path, index=False)
         tk.messagebox.showinfo("Save", "Saved successfully")
-        print(self.book)
+        # print(self.book)
 
     def import_data(self):
-        self.book = pd.read_excel(self.df_path, dtype=str)
-        print(self.book)
-        for i in range(0, len(self.book)):
-            self.tree.insert('', tk.END,
-                             value=(self.book.loc[i, 'name'], self.book.loc[i, 'last'], self.book.loc[i, 'num']))
-            print(type(self.book.loc[i, 'name']))
-            print(type(self.book.loc[i, 'last']))
-            print(type(self.book.loc[i, 'num']))
+        self.tree.delete(*self.tree.get_children())
+        try:
+            self.book = pd.read_excel(self.df_path, dtype=str)
+        except:
+            self.book = pd.DataFrame(columns=['name', 'last', 'num'])
         frames = [self.book, self.work_book]
-        self.work_book = pd.concat(frames)
+        self.work_book = pd.concat(frames).reset_index(drop=True)
+        self.work_book = self.work_book.drop_duplicates()
+        self.work_book = self.work_book.reset_index(drop=True)
+        for i in range(0, len(self.work_book)):
+            self.tree.insert('', tk.END,
+                             value=(self.work_book.loc[i, 'name'], self.work_book.loc[i, 'last'], self.work_book.loc[i, 'num']))
 
     def search(self):
         self.tree.delete(*self.tree.get_children())
         self.search_book = pd.read_excel(self.df_path, dtype=str)
-        print(self.search_book)
-        print(self.search_text.get())
-        print(type(self.search_text.get()))
 
         if self.r_var.get() == 1:
             self.search_book = self.book[self.book['name'] == self.search_text.get()].reset_index(drop=True)
-            print(self.search_text.get())
-            print(self.search_book)
-            print(len(self.search_book))
             for i in range(0, len(self.search_book)):
                 self.tree.insert('', tk.END, value=(self.search_book.loc[i, 'name'], self.search_book.loc[i, 'last'],
                                                     self.search_book.loc[i, 'num']))
         elif self.r_var.get() == 2:
             self.search_book = self.book[self.book['last'] == self.search_text.get()].reset_index(drop=True)
-            print(self.search_text.get())
-            print(self.search_book)
-            print(len(self.search_book))
             for i in range(0, len(self.search_book)):
                 self.tree.insert('', tk.END, value=(self.search_book.loc[i, 'name'], self.search_book.loc[i, 'last'],
                                                     self.search_book.loc[i, 'num']))
         if self.r_var.get() == 3:
             if self.search_text.get()[0] == '+':
                 self.search_book = self.book[self.book['num'] == self.search_text.get()].reset_index(drop=True)
-                print(self.search_text.get())
-                print(self.search_book)
-                print(len(self.search_book))
                 for i in range(0, len(self.search_book)):
                     self.tree.insert('', tk.END, value=(self.search_book.loc[i, 'name'],
                                                         self.search_book.loc[i, 'last'],
                                                         self.search_book.loc[i, 'num']))
             elif self.search_text.get().isnumeric:
                 self.search_book = self.book[self.book['num'] == '+' + self.search_text.get()].reset_index(drop=True)
-                print(self.search_text.get())
-                print(self.search_book)
-                print(len(self.search_book))
                 for i in range(0, len(self.search_book)):
                     self.tree.insert('', tk.END, value=(self.search_book.loc[i, 'name'],
                                                         self.search_book.loc[i, 'last'],
@@ -173,13 +154,11 @@ class Phone:
         self.r_var.set(0)
 
     def edit(self):
-
         if len(self.tree.selection()) > 0:
             self.edit_win = tk.Toplevel()
             self.edit_win.title('Edit')
             self.edit_item = self.tree.selection()[0]
             self.edit_item_list = list(self.tree.item(self.edit_item).values())[2]
-            print(self.edit_item_list)
 
             tk.Label(self.edit_win, text='Change name').grid(row=0, column=0)
             tk.Label(self.edit_win, text='Change last name').grid(row=1, column=0)
@@ -201,23 +180,17 @@ class Phone:
         else:
             tk.messagebox.showerror('Error', 'Please, select the line you want to change')
 
-
     def ok(self):
         changed_name = self.new_name.get()
         changed_last = self.new_lastname.get()
         changed_num = self.new_num.get()
-        print(changed_name)
-        print(changed_last)
-        print(changed_num)
 
         if self.validation(changed_name, changed_last, changed_num, True):
             num = '+' + str(self.edit_item_list[2])
             self.work_book = self.work_book[self.work_book['num'] != num].reset_index(drop=True)
-            print(self.work_book)
             self.tree.delete(self.edit_item)
             self.work_book.loc[len(self.work_book)] = [changed_name, changed_last, str(changed_num)]
             self.tree.insert('', tk.END, value=(changed_name, changed_last, changed_num))
-            print(self.work_book)
             self.edit_win.destroy()
 
     def validation(self, name, last, number, edit=False):
