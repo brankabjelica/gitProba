@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 
 
+
 class TestLidl(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -37,6 +38,5 @@ class TestLidl(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
 
 
