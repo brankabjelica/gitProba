@@ -26,7 +26,7 @@ class DomaciTest(unittest.TestCase):
         padmenu = d.find_element_by_id("dropdown").click()
         time.sleep(2)
         select = d.find_element_by_xpath("//option[contains(text(),'Option 2')]").click()
-        time.sleep(2)
+        time.sleep(4)
 
     def testLogIn(self):
         d = self.driver
