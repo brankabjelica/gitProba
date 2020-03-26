@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 import os
 
 
+
 driver = webdriver.Chrome()
 driver.get("http://the-internet.herokuapp.com/horizontal_slider")
 action_chains = ActionChains(driver)
