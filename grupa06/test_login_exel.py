@@ -34,7 +34,6 @@ class HerokupLogIn(unittest.TestCase):
         ps.send_keys(password)
         bt.click()
         time.sleep(4)
-        sheet.cell(row=2, column=4, value='+')
 
         try:
             driver.find_element_by_id("flash")
