@@ -1,4 +1,4 @@
 "Napravite listu imena"
 
-print("ana", "jana")
+print("ana", "sanja")
 
