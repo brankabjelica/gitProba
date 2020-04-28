@@ -2,7 +2,7 @@ git clone url - Snimanje fajlova na Desktop
 touch index.html - Pravi novi fajl
 git status - ako je neki crveni fajl, znaci izvrsena promena
 git add index.html - dodaje fajl na github
-git commit -m"Komentar" - potvrditi promenu, i dalje lokalna promena
+git commit -m "Komentar" - potvrditi promenu, i dalje lokalna promena
 git push origin master - sinhronizacija sa github
 git config --global user.name "username" - autentifikacija
 git config --global user.email "mail" - autentifikacija
